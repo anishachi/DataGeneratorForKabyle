@@ -1,3 +1,18 @@
+## Changes made compared to original tool:
+- added support for kabyle language
+- added fonts that support kabyle charachters (Noto font family,DejaVu,courier new)
+- added demo text file and dictionnary with kabyle corpus
+- added bboxes to polygons function
+- added option to draw bbox or polygon on output images
+- changed data output format to ( x1, y1, x2, y1, x2, y2, x1, y2,Trancription)
+- changed files naming format.
+
+## Examples generated images :
+![1](samples/da966c"1")
+![2](samples/d69f47.jpg "2")
+
+The rest of the read me is from the original repo : https://github.com/Belval/TextRecognitionDataGenerator
+
 # TextRecognitionDataGenerator [![CircleCI](https://circleci.com/gh/Belval/TextRecognitionDataGenerator/tree/master.svg?style=svg)](https://circleci.com/gh/Belval/TextRecognitionDataGenerator/tree/master) [![PyPI version](https://badge.fury.io/py/trdg.svg)](https://badge.fury.io/py/trdg) [![codecov](https://codecov.io/gh/Belval/TextRecognitionDataGenerator/branch/master/graph/badge.svg)](https://codecov.io/gh/Belval/TextRecognitionDataGenerator) [![Documentation Status](https://readthedocs.org/projects/textrecognitiondatagenerator/badge/?version=latest)](https://textrecognitiondatagenerator.readthedocs.io/en/latest/?badge=latest)
 
 A synthetic data generator for text recognition
