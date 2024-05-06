@@ -1,4 +1,4 @@
-## Changes made compared to original tool:
+## Changes made compared to the original tool:
 - added support for kabyle language
 - added fonts that support kabyle characters (Noto font family,DejaVu,courier new)
 - added demo text file and dictionnary with kabyle corpus (larger corpus cooming soon)
