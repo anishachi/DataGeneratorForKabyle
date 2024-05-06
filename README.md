@@ -2,7 +2,7 @@
 - added support for kabyle language
 - added fonts that support kabyle characters (Noto font family,DejaVu,courier new)
 - added demo text file and dictionnary with kabyle corpus
-- added bboxes to polygons function
+- added function to convert bboxes into polygons
 - added functions to draw bboxes or polygons on output images
 - changed data output format to ( x1, y1, x2, y1, x2, y2, x1, y2,Trancription)
 - changed files naming format.
