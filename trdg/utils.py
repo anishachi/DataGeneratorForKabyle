@@ -101,14 +101,57 @@ def mask_to_bboxes(mask: List[Tuple[int, int, int, int]], tess: bool = False):
     return bboxes
 
 
+
+def bbox2poly(bboxes:List[Tuple[int, int, int, int]], mode: str = 'xyxy'):
+    """Converting a bounding box to a polygon.
+
+    Args:
+        bbox (ArrayLike): A bbox. In any form can be accessed by 1-D indices.
+         E.g. list[float], np.ndarray, or torch.Tensor. bbox is written in
+            [x1, y1, x2, y2].
+        mode (str): Specify the format of bbox. Can be 'xyxy' or 'xywh'.
+            Defaults to 'xyxy'.
+
+    Returns:
+        np.array: The converted polygon [x1, y1, x2, y1, x2, y2, x1, y2].
+    """
+    polys=[]
+    for bbox in bboxes:
+        assert len(bbox) == 4
+        if mode == 'xyxy':
+            x1, y1, x2, y2 = bbox
+            poly = (x1, y1, x2, y1, x2, y2, x1, y2)
+            polys.append(poly)
+        elif mode == 'xywh':
+            x, y, w, h = bbox
+            poly = (x, y, x + w, y, x + w, y + h, x, y + h)
+            polys.append(poly)
+        else:
+            raise NotImplementedError('Not supported mode.')
+
+    return polys
+
+
 def draw_bounding_boxes(
-    img: Image, bboxes: List[Tuple[int, int, int, int]], color: str = "green"
-) -> None:
+    img: Image, bboxes: List[Tuple[int, int, int, int,]], color: str = "green"
+) -> Image:
     d = ImageDraw.Draw(img)
 
     for bbox in bboxes:
         d.rectangle(bbox, outline=color)
+    
+    return img
 
+def draw_polygons(
+    img: Image, polys:List[Tuple[int, int, int, int,int, int, int, int]],words, color: str = "green"
+) -> Image:
+    d = ImageDraw.Draw(img)
+
+    for i,poly in enumerate(polys):
+        if(words[i]!=' '):
+            d.polygon(poly, outline=color)
+    
+    return img
 
 def make_filename_valid(value: str, allow_unicode: bool = False) -> str:
     """
