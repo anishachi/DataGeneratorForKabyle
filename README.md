@@ -1,6 +1,6 @@
 ## Changes made compared to original tool:
 - added support for kabyle language
-- added fonts that support kabyle charachters (Noto font family,DejaVu,courier new)
+- added fonts that support kabyle characters (Noto font family,DejaVu,courier new)
 - added demo text file and dictionnary with kabyle corpus
 - added bboxes to polygons function
 - added option to draw bbox or polygon on output images
