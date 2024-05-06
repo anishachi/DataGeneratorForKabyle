@@ -9,7 +9,7 @@
 
 ## Example of usage and generated images :
 ```
-python run.py -l kab -i texts/kab-demo.txt -c 1 --output_bboxes 1 --word_split
+python run.py -l kab -i texts/kab-demo.txt -c 1 -f 64 --output_bboxes 1 --word_split
 ```
 
 ![1](samples/da966c.jpg "1")
