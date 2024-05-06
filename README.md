@@ -8,8 +8,10 @@
 - changed files naming format.
 
 ## Examples generated images :
-![1](samples/da966c"1")
+
+![1](samples/da966c.jpg"1")
 ![2](samples/d69f47.jpg "2")
+![3](samples/1b3fbe.jpg "3")
 
 The rest of the read me is from the original repo : https://github.com/Belval/TextRecognitionDataGenerator
 
