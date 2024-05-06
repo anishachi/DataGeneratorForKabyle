@@ -7,7 +7,10 @@
 - changed data output format to ( x1, y1, x2, y1, x2, y2, x1, y2,Trancription)
 - changed files naming format.
 
-## Examples generated images :
+## Example of usage and generated images :
+```
+python run.py -l kab -i texts/kab-demo.txt -c 1 --output_bboxes 1 --word_split
+```
 
 ![1](samples/da966c.jpg "1")
 ![2](samples/d69f47.jpg "2")
