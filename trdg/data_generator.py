@@ -4,7 +4,7 @@ import random as rnd
 from PIL import Image, ImageFilter, ImageStat
 
 from trdg import computer_text_generator, background_generator, distorsion_generator
-from trdg.utils import mask_to_bboxes, make_filename_valid
+from trdg.utils import mask_to_bboxes, make_filename_valid, draw_bounding_boxes,bbox2poly,draw_polygons
 
 try:
     from trdg import handwritten_text_generator
@@ -245,26 +245,30 @@ class FakeTextDataGenerator(object):
         final_image = background_img.filter(gaussian_filter)
         final_mask = background_mask.filter(gaussian_filter)
 
+         #######################
+        # Draw bboxes #
+        #######################
+        bboxes = mask_to_bboxes(final_mask)
+        polygons=bbox2poly(bboxes)
+        words = []
+        for w in text.split(" "):
+            words.append(w)
+            words.append(" ")
+        words.pop()
+        
+        #final_image=draw_bounding_boxes(final_image,bboxes)
+        
+        # uncomment the line below to draw bboxes on the generated images 
+        #final_image= draw_polygons(final_image,polygons,words)
+
         #####################################
         # Generate name for resulting image #
         #####################################
-        # We remove spaces if space_width == 0
-        if space_width == 0:
-            text = text.replace(" ", "")
-        if name_format == 0:
-            name = "{}_{}".format(text, str(index))
-        elif name_format == 1:
-            name = "{}_{}".format(str(index), text)
-        elif name_format == 2:
-            name = str(index)
-        else:
-            print("{} is not a valid name format. Using default.".format(name_format))
-            name = "{}_{}".format(text, str(index))
-
-        name = make_filename_valid(name, allow_unicode=True)
+       
+        name = uuid.uuid4().hex[:6]
         image_name = "{}.{}".format(name, extension)
+        poly_name="{}.txt".format(name)
         mask_name = "{}_mask.png".format(name)
-        box_name = "{}_boxes.txt".format(name)
         tess_box_name = "{}.box".format(name)
 
         # Save the image
@@ -273,10 +277,10 @@ class FakeTextDataGenerator(object):
             if output_mask == 1:
                 final_mask.save(os.path.join(out_dir, mask_name))
             if output_bboxes == 1:
-                bboxes = mask_to_bboxes(final_mask)
-                with open(os.path.join(out_dir, box_name), "w") as f:
-                    for bbox in bboxes:
-                        f.write(" ".join([str(v) for v in bbox]) + "\n")
+                with open(os.path.join(out_dir, poly_name), mode="w",encoding="utf-8") as f:
+                    for i,poly in enumerate(polygons):
+                        if(words[i] != ' ' ):
+                            f.write(",".join([str(v) for v in poly]) + ","+ words[i] +"\n")
             if output_bboxes == 2:
                 bboxes = mask_to_bboxes(final_mask, tess=True)
                 with open(os.path.join(out_dir, tess_box_name), "w") as f:
